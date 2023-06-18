@@ -49,11 +49,18 @@ def load_link_of_qs():
 
     return links
 
+def load_index_of_qs():
+    with open("Leetcode-Scraping/qData/index.txt", "r") as f:
+        Q_heading = f.readlines()
+
+    return Q_heading
+
 
 vocab = load_vocab()            # vocab : idf_values
 document = load_document()
 inverted_index = load_inverted_index()
 Qlink = load_link_of_qs()
+Qindex = load_index_of_qs()
 
 
 def get_tf_dict(term):
@@ -107,7 +114,7 @@ def calc_docs_sorted_order(q_terms):
         # sort in dec order acc to values calculated
         potential_docs = dict(
             sorted(potential_docs.items(), key=lambda item: item[1], reverse=True))
-
+        # print(potential_docs)
         # if no doc found
         if (len(potential_docs) == 0):
             print("No matching question found. Please search with more relevant terms.")
@@ -118,24 +125,27 @@ def calc_docs_sorted_order(q_terms):
             # print("Question Link:", Qlink[int(
             #     doc_index) - 1], "\tScore:", potential_docs[doc_index])
             ans.append({"Question Link": Qlink[int(
-                doc_index) - 1][:-2], "Score": potential_docs[doc_index]})
+                doc_index) - 1][:-2],"Question_title": Qindex[int(
+                doc_index) - 1] ,"Score": potential_docs[doc_index]})
+        
+        for item in ans:
+            item["Question_title"] = item["Question_title"].strip('0123456789. ').strip()
+    #print(ans)
     return ans
 
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your-secret-key'
-
-
-# query = input('Enter your query: ')
-# q_terms = [term.lower() for term in query.strip().split()]
+#query = input('Enter your query: ')
+#q_terms = [term.lower() for term in query.strip().split()]
 
 # print(q_terms)
 # print(calc_docs_sorted_order(q_terms)[0])
 # print(len(calc_docs_sorted_order(q_terms)))
 
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'your-secret-key'
 
 class SearchForm(FlaskForm):
-    search = StringField('Enter your search term')
+    search = StringField('')
     submit = SubmitField('Search')
 
 

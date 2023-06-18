@@ -2,20 +2,184 @@
 <html>
   <head>
     <title>Search Page</title>
-    <link rel="stylesheet" href="style.css" />
+    <!--<link rel="stylesheet" href="style.css" />-->
+    <style>
+      body {
+        background-color: #212121;
+        font-family: Arial, sans-serif;
+      }
+
+      .app {
+        flex-direction: column;
+        justify-content: center;
+        background-color: #212121;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        text-align: center;
+        width: 100%;
+    }
+      
+      .button1 {
+        --border-right: 6px;
+        --text-stroke-color: hsla(0,0%,100%,.6);
+        --animation-color: #37ff8b;
+        --fs-size: 2em;
+        -webkit-text-stroke: 1px var(--text-stroke-color);
+        background: transparent;
+        border: none;
+        color: transparent;
+        font-family: Arial;
+        font-size: var(--fs-size);
+        height: auto;
+        letter-spacing: 4px;
+        margin: 5rem 0 1rem;
+        padding: 0;
+        position: relative;
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+
+      
+/*
+      .hover-text {
+        -webkit-text-stroke: 1px var(--animation-color);
+        border-right: var(--border-right) solid var(--animation-color);
+        box-sizing: border-box;
+        color: var(--animation-color);
+        content: attr(data-text);
+        inset: 0;
+        overflow: hidden;
+        position: absolute;
+        transition: .5s;
+        width: 0;
+    }
+      
+*/
+      .form {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 50px;
+      }
+
+      .search-label {
+        /* CSS styling for the search label */
+        color: orange;
+        font-weight: bold;
+      }
+    
+      .search-input {
+        /* CSS styling for the search input */
+        width: 400px;
+        height: 30px;
+        padding: 5px;
+        border: 1px solid gray;
+        border-radius: 4px;
+        
+        
+      }
+    
+      .submit-button {
+        /* CSS styling for the submit button */
+        background-color: green;
+        margin-left: -4px;
+        color: white;
+        padding: 6px 16px;
+        border: none;
+        cursor: pointer;
+        height: 41px;
+        border-radius: 4px;
+      }
+
+      .tagline{
+        position: relative;
+        margin-bottom: 20px;
+        color: white;
+        font-weight: bolder;
+      }
+      
+      .results{
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        height: 300px;
+        margin: 0.9rem auto 3rem;
+        overflow: auto;
+        padding: 10px;
+        position: relative;
+        width: 900px;
+    }
+
+      .results ul {
+        color: #212121;
+        font-size: large;
+        font-weight: 500;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .results ul li {
+        background-color: #37ff8b;
+        border-radius: 10px;
+        height: 2.5rem;
+        margin-bottom: 10px;
+        padding-left: 1rem;
+        padding-top: 1rem;
+        text-align: left;
+      }
+
+      .results ul li a {
+        color: #212121;
+        font-size: large;
+        font-weight: 500;
+        text-decoration: none;
+      }
+
+
+
+      
+
+
+    </style>
   </head>
   <body>
-    <div class="form">
-      <form method="POST">
-        {{ form.hidden_tag() }} {{ form.search.label }} {{ form.search() }} {{
-        form.submit() }}
-      </form>
+    <div class="app">
+      <button data-text="Awesome" class="button1">
+        <span class="actual-text">&nbsp;FastSearch&nbsp;</span>
+        <!--<span class="hover-text" aria-hidden="true">&nbsp;FastSearch&nbsp;</span>-->
+      </button>
+
+      <div class="tagline"> Makes your searching fast and easy </div>
+      
+      <div class="form">
+        <form method="POST">
+          {{ form.hidden_tag() }}
+          <label class="search-label" for="{{ form.search.id }}">{{ form.search.label }}</label>
+          {{ form.search(class_="search-input",placeholder="Enter your search query") }}
+          {{ form.submit(class_="submit-button") }}
+        </form>
+      </div>
+      <div>
+    
+    
+      <div class="results">
+        <ul>
+          {% for result in results %}
+          <li>
+            <a href="{{ result['Question Link'] }}">{{ result['Question_title'] }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+        
+      </div>
     </div>
-    <div>
-      {% for result in results %}
-      <a href="{{ result['Question Link'] }}">{{ result['Question Link'] }}</a>
-      <p>Score: {{ result['Score'] }}</p>
-      {% endfor %}
-    </div>
+
+      
+      
+    
   </body>
 </html>
