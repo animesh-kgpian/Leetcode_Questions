@@ -159,11 +159,11 @@
         <form method="POST">
           {{ form.hidden_tag() }}
           <label class="search-label" for="{{ form.search.id }}">{{ form.search.label }}</label>
-          {{ form.search(class_="search-input",placeholder="Enter your search query") }}
+          {{ form.search(class_="search-input",placeholder="Enter your query", autocomplete="off") }}
           {{ form.submit(class_="submit-button") }}
         </form>
       </div>
-      <div>
+      
     
     
       <div class="results">
