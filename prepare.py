@@ -11,7 +11,7 @@ for i in range(1, 2040):
     file_path = os.path.join(qData_folder, "{}/{}.txt".format(i, i))
 
     doc = ""
-    with open(file_path, "r", encoding= 'utf-8', errors = "ignore") as f:
+    with open(file_path, "r", encoding= 'latin-1', errors = "ignore") as f:
         lines = f.readlines()
     
     for line in lines:
@@ -53,18 +53,18 @@ print("Sample document: ", documents[100])
 
 # keys of vocab thus is a set of distinct words across all docs
 # save them in file vocab
-with open("vocab.txt", "w", encoding = 'utf-8', errors = "ignore") as f:
+with open("vocab.txt", "w", encoding = 'latin-1', errors = "ignore") as f:
     for key in vocab.keys():
         f.write("%s\n" % key)
 
 # save idf values
-with open("idf-values.txt", "w", encoding = 'utf-8', errors = "ignore") as f:
+with open("idf-values.txt", "w", encoding = 'latin-1', errors = "ignore") as f:
     for key in vocab.keys():
         f.write("%s\n" % vocab[key])
 
 
 #save the documents(lists of words for each doc)
-with open("document.txt", "w", encoding = 'utf-8', errors = "ignore") as f:
+with open("document.txt", "w", encoding = 'latin-1', errors = "ignore") as f:
     for doc in documents:
         f.write("%s\n" % doc)
 
@@ -79,7 +79,7 @@ for (index, doc) in enumerate(documents, start = 1):
 
 
 # save the inverted index in a file
-with open("inverted_index.txt", 'w', encoding = 'utf-8', errors = "ignore") as f:
+with open("inverted_index.txt", 'w', encoding = 'latin-1', errors = "ignore") as f:
     for key in inverted_index.keys():
         f.write("%s\n" % key)
         

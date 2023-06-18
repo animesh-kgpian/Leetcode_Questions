@@ -9,9 +9,9 @@ from wtforms import StringField, SubmitField
 
 def load_vocab():
     vocab = {}
-    with open("vocab.txt", "r") as f:
+    with open("vocab.txt", "r", encoding = 'latin-1', errors = "ignore") as f:
         vocab_terms = f.readlines()
-    with open("idf-values.txt", "r") as f:
+    with open("idf-values.txt", "r", encoding = 'latin-1', errors = "ignore") as f:
         idf_values = f.readlines()
 
     for (term, idf_value) in zip(vocab_terms, idf_values):
@@ -21,7 +21,7 @@ def load_vocab():
 
 
 def load_document():
-    with open("document.txt", "r") as f:
+    with open("document.txt", "r", encoding = 'latin-1', errors = "ignore") as f:
         documents = f.readlines()
 
     # print('Number of documents: ', len(documents))
@@ -31,7 +31,7 @@ def load_document():
 
 def load_inverted_index():
     inverted_index = {}
-    with open('inverted_index.txt', 'r') as f:
+    with open('inverted_index.txt', 'r' , encoding = 'latin-1', errors = "ignore") as f:
         inverted_index_terms = f.readlines()
 
     for row_num in range(0, len(inverted_index_terms), 2):
@@ -44,13 +44,13 @@ def load_inverted_index():
 
 
 def load_link_of_qs():
-    with open("Leetcode-Scraping/qData/Qlink.txt", "r") as f:
+    with open("Leetcode-Scraping/qData/Qlink.txt", "r", encoding = 'latin-1', errors = "ignore") as f:
         links = f.readlines()
 
     return links
 
 def load_index_of_qs():
-    with open("Leetcode-Scraping/qData/index.txt", "r") as f:
+    with open("Leetcode-Scraping/qData/index.txt", "r", encoding = 'latin-1', errors = "ignore") as f:
         Q_heading = f.readlines()
 
     return Q_heading
