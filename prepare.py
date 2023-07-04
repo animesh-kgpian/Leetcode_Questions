@@ -1,14 +1,14 @@
 import os
 import re
 
-qData_folder = "Leetcode scraping/qData"
+qData_folder = "Leetcode-Scraping/qData"
 
 target_str = "Example 1:"
 
 all_lines = []
 
 for i in range(1, 2040):
-    file_path = os.path.join(qData_folder, "{}/{}.txt".format(i, i))
+    file_path = os.path.join(qData_folder, "{}/{}.txt".format(i, i))   
 
     doc = ""
     with open(file_path, "r", encoding= 'latin-1', errors = "ignore") as f:
@@ -23,7 +23,7 @@ for i in range(1, 2040):
     all_lines.append(doc)
 
 
-def preprocess(text):      # remove problem no, and return a list of lowercase words
+def preprocess(text):                                # remove problem no, and return a list of lowercase words
     text = re.sub(r'[^a-zA-Z0-9\s-]', '', text)      # removing non alphanumeric chars
     terms = [term.lower() for term in text.strip().split()]
 
@@ -47,8 +47,8 @@ for (index, line)  in enumerate(all_lines):
 vocab = dict( sorted(vocab.items(), key = lambda item : item[1], reverse = True) )
 
 
-print("No of documents : ", len(documents))
-print("Size of vocab : ", len(vocab))
+print("No of documents : ", len(documents))     #no. of questions scrapped in total(only lowercase letters present)
+print("Size of vocab : ", len(vocab))           #no. of different words present in total
 print("Sample document: ", documents[100])
 
 # keys of vocab thus is a set of distinct words across all docs
@@ -57,19 +57,20 @@ with open("vocab.txt", "w", encoding = 'latin-1', errors = "ignore") as f:
     for key in vocab.keys():
         f.write("%s\n" % key)
 
-# save idf values
+# save idf values(number of times a particular key/word is present in all docs)
 with open("idf-values.txt", "w", encoding = 'latin-1', errors = "ignore") as f:
     for key in vocab.keys():
         f.write("%s\n" % vocab[key])
 
 
-#save the documents(lists of words for each doc)
+#save the documents(lists of words for each doc(each question in qData folder))
 with open("document.txt", "w", encoding = 'latin-1', errors = "ignore") as f:
     for doc in documents:
         f.write("%s\n" % doc)
 
-inverted_index = {}         # word : list of index of docs the word is present in.
-                    # inserting word multiple times from same doc too, so that we even get the term freq from here itself
+inverted_index = {}         # word : list of index of docs a particular word is present in.
+                            # inserting that word multiple times from same doc too, 
+                            # so that we even get the term freq (that is number of times that word is present in a particular doc) from here itself
 for (index, doc) in enumerate(documents, start = 1):
     for token in doc:
         if token not in inverted_index:

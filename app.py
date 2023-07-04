@@ -15,7 +15,7 @@ def load_vocab():
         idf_values = f.readlines()
 
     for (term, idf_value) in zip(vocab_terms, idf_values):
-        vocab[term.rstrip()] = int(idf_value.rstrip())
+        vocab[term.rstrip()] = int(idf_value.rstrip())    #term.rstrip() removes any trailing whitespace characters from the term string
 
     return vocab
 
@@ -65,7 +65,7 @@ Qindex = load_index_of_qs()
 
 def get_tf_dict(term):
     tf_dict = {}
-    if term in inverted_index:
+    if term in inverted_index:            #for a particular term , calculate frequency of that term in each doc
         for doc in inverted_index[term]:
             if doc not in tf_dict:
                 tf_dict[doc] = 1
